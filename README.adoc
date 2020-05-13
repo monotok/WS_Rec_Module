@@ -1,0 +1,19 @@
+:icons: font
+
+= Reciever Module for WSP (Weather Station Plus)
+
+NOTE: Will be updated to be more dynamic, from the original C implementation.
+
+WARNING: This won't really do too much without the main weather station code.
+
+This is the code for the receiver module which communicates with the raspberry pi via i2c and
+controls the 433 Mhz receiver.
+
+== Build
+
+----
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake --build . --target WS_Rec_Module-upload
+----
