@@ -1,6 +1,6 @@
 :icons: font
 
-= Reciever Module for WSP (Weather Station Plus)
+= Receiver Module for WSP (Weather Station Plus)
 
 NOTE: Will be updated to be more dynamic, from the original C implementation.
 
