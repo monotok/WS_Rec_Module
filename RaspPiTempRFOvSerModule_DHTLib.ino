@@ -27,7 +27,7 @@ uint8_t whichStructToSend = 0;
 
 struct sensor_Data 
 {
-  uint16_t temperature; 
+  uint16_t temperature;
   char sensorID[10];
   uint16_t perBatt;
 }tempSensorValues;
@@ -163,20 +163,22 @@ void loop()
     tempFromSensor = ((float)ssts.tempSensorValues.temperature/100);
     perBattLeft = ((float)ssts.tempSensorValues.perBatt/100);
 
-   // Serial.print(tempFromSensor);
-   // Serial.print(":");
-   // Serial.print(ssts.tempSensorValues.sensorID);
-   // Serial.print(":");
-   // Serial.print(perBattLeft);
+//    Serial.print(tempFromSensor);
+//    Serial.print(":");
+//    Serial.print(ssts.tempSensorValues.sensorID);
+//    Serial.print(":");
+//    Serial.print(perBattLeft);
    // Serial.print(":");
    // Serial.print(lsts.local.temperature);
    // Serial.print(":");
    // Serial.print(lsts.local.humidity);
-   // Serial.print(":");
-   // Serial.print(errorC);
-   // Serial.print(":");
-   // Serial.print(okC);
-   // Serial.print("\n");
+//    Serial.print(":");
+//    Serial.print("Error");
+//    Serial.print(errorC);
+//    Serial.print(":");
+//    Serial.print("Ok");
+//    Serial.print(okC);
+//    Serial.print("\n");
     delay(100);
     digitalWrite(receive_LED, LOW);
   }
