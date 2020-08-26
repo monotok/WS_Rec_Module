@@ -2,9 +2,9 @@
 // Created by hammer on 01/07/2020.
 //
 
-#include "../include/Receive.hpp"
+#include "../include/Transit.hpp"
 
-void Receive::ReceiveSensor(Sensor &sensors)
+void Transit::ReceiveSensor(Sensor &sensors)
 {
     if (Radio.recv(sensorBuffer, &sensorBufferLength))
     {
@@ -17,7 +17,7 @@ void Receive::ReceiveSensor(Sensor &sensors)
     }
 }
 
-void Receive::initialise()
+void Transit::initialise()
 {
     Radio.init();
 }

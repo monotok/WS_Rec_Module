@@ -26,8 +26,30 @@ void Sensor::addReceivedSensor()
     }
 }
 
-Sensor::SensorData* Sensor::getReceivedSensors()
+void Sensor::prepareSensorsForI2cTransit()
 {
-    return receivedSensors;
+    memcpy(packet, &receivedSensors[packetCount], sizeof(receivedSensors[0]));
+}
+
+int Sensor::getSizeOfSensorArray()
+{
+    return sizeof(receivedSensors[0]);
+}
+
+void Sensor::nextPacket()
+{
+    if(packetCount < (sizeof(receivedSensors)/sizeof(receivedSensors[0])))
+    {
+        if(packetCount == sizeof(receivedSensors[0])-1) {
+            packetCount = 0;
+        } else {
+            packetCount += 1;
+        }
+    }
+}
+
+void Sensor::resetPacketCount()
+{
+    packetCount = 0;
 }
 

@@ -9,10 +9,10 @@
 #include <SPI.h>
 #include <Abc_Sensor.hpp>
 
-class Receive
+class Transit
 {
 public:
-    Receive(int ledPin, int radioReceivePin): ledPin(ledPin), Radio(2000, radioReceivePin, 0, 0) {
+    Transit(int ledPin, int radioReceivePin): ledPin(ledPin), Radio(2000, radioReceivePin, 0, 0) {
         pinMode(ledPin, OUTPUT);
     }
 

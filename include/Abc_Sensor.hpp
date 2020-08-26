@@ -6,31 +6,36 @@
 #define WS_REC_MODULE_ABC_SENSOR_HPP
 
 #include <stdint-gcc.h>
+#include "string.h"
+#include <Arduino.h>
+
 
 class Sensor
 {
 
 public:
     struct SensorData {
-        uint8_t sensorId;
-        char sensorType;
+        float sensorId;
+        char sensorType[4];
         float reading;
-        char readingType;
-        char unit;
-        uint8_t precision;
-        uint8_t length;
-    } null = {0};
+        char unit[4];
+    };
 
     void reinitialiseTempSensor();
     SensorData* getTempSensorData();
 
     void addReceivedSensor();
-    SensorData* getReceivedSensors();
-//    void deleteReceivedSensors();
+    void prepareSensorsForI2cTransit();
+    int getSizeOfSensorArray();
+    void nextPacket();
+    void resetPacketCount();
 
 //private:
-    SensorData receivedSensors[20] = {{null}};
     SensorData temp = {};
+    SensorData receivedSensors[20] = {{0}};
+    char packet[sizeof(receivedSensors[0])];
+
+    short packetCount = 0;
 
 
 };
