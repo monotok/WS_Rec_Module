@@ -15,10 +15,10 @@ class Sensor
 
 public:
     struct SensorData {
-        float sensorId;
-        char sensorType[4];
-        float reading;
-        char unit[4];
+        char sensorId[4] = {};
+        char sensorType[4] = {};
+        float reading = {};
+        char unit[4] = {};
     };
 
     void reinitialiseTempSensor();
@@ -32,7 +32,7 @@ public:
 
 //private:
     SensorData temp = {};
-    SensorData receivedSensors[20] = {{0}};
+    SensorData receivedSensors[20] = {{}};
     char packet[sizeof(receivedSensors[0])];
 
     short packetCount = 0;

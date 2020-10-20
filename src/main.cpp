@@ -12,6 +12,7 @@
 
 Sensor sensors;
 Transit rec(3, 8);
+//short i = 0;
 
 void i2cSendData()
 {
@@ -48,11 +49,16 @@ void loop()
     rec.ReceiveSensor(sensors);
 //    for (auto &reading : sensors.receivedSensors)
 //    {
-//        if (reading.sensorId != 0) {
+//        if (reading.sensorId[0] != 0) {
 //            Serial.print("Sensor ID " + String(reading.sensorId) + " Reading ");
 //            Serial.print(reading.reading);
+//            Serial.print(" Array Pos ");
+//            Serial.print(i);
 //            Serial.print('\n');
 //        }
+//        i++;
 //    }
-//    delay(2000);
+//    i = 0;
+    delay(1000);
+//    Serial.print('\n');
 }

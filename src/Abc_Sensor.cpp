@@ -18,7 +18,7 @@ void Sensor::addReceivedSensor()
 {
     for (auto &s : receivedSensors)
     {
-        if(s.sensorId == temp.sensorId || s.sensorId == 0)
+        if(strcmp(s.sensorId,temp.sensorId) == 0 || s.sensorId[0] == 0)
         {
             s = temp;
             break;
