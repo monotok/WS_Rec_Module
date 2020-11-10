@@ -11,8 +11,18 @@
 #define MASTER_ADDRESS 0x04
 
 Sensor sensors;
-Transit rec(3, 8);
-//short i = 0;
+#define TRANSIT_LED_PIN A1
+#define ERR_LED_PIN A2
+
+// Radio
+#define RFM69_INT     3
+#define RFM69_CS      4
+#define RFM69_RST     2
+#define RF69_FREQ 868.0
+
+Transit rf(TRANSIT_LED_PIN, ERR_LED_PIN, RFM69_CS, RFM69_INT, RFM69_RST, RF69_FREQ);
+
+short i = 0;
 
 void i2cSendData()
 {
@@ -37,7 +47,7 @@ void prepareNextSensorSendI2c(int numBytes)
 void setup()
 {
     Serial.begin(9600);
-    rec.initialise();
+    rf.initialiseTransit();
 
     Wire.begin(MASTER_ADDRESS);
     Wire.onRequest(i2cSendData);
@@ -46,19 +56,19 @@ void setup()
 
 void loop()
 {
-    rec.ReceiveSensor(sensors);
-//    for (auto &reading : sensors.receivedSensors)
-//    {
-//        if (reading.sensorId[0] != 0) {
-//            Serial.print("Sensor ID " + String(reading.sensorId) + " Reading ");
-//            Serial.print(reading.reading);
-//            Serial.print(" Array Pos ");
-//            Serial.print(i);
-//            Serial.print('\n');
-//        }
-//        i++;
-//    }
-//    i = 0;
+    rf.ReceiveSensor(sensors);
+    for (auto &reading : sensors.receivedSensors)
+    {
+        if (reading.sensorId[0] != 0) {
+            Serial.print("Sensor ID " + String(reading.sensorId) + " Reading ");
+            Serial.print(reading.reading);
+            Serial.print(" Array Pos ");
+            Serial.print(i);
+            Serial.print('\n');
+        }
+        i++;
+    }
+    i = 0;
+    Serial.print('\n');
     delay(1000);
-//    Serial.print('\n');
 }
