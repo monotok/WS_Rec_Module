@@ -4,6 +4,14 @@
 
 #include "../include/Transit.hpp"
 
+Transit::Transit(int ledPin, short ledErrPin, short csPin, short intPin, short rstPin, float frequency): ledPin(ledPin),
+                                                                                                         ledErrPin(ledErrPin), rstPin(rstPin), frequency(frequency), Radio(csPin, intPin)
+{
+    pinMode(ledPin, OUTPUT);
+    pinMode(ledErrPin, OUTPUT);
+    pinMode(rstPin, OUTPUT);
+}
+
 void Transit::ReceiveSensor(Sensor &sensors)
 {
     if (Radio.recv(sensorBuffer, &sensorBufferLength))
@@ -17,8 +25,33 @@ void Transit::ReceiveSensor(Sensor &sensors)
     }
 }
 
-void Transit::initialise()
+void Transit::initialiseTransit()
 {
-    Radio.init();
+    if (!Radio.init()) {
+        flashErrLed();
+    }
+    setRadioFrequency();
+    setRadioPower();
 }
 
+void Transit::setRadioFrequency()
+{
+    if (!Radio.setFrequency(frequency)) {
+        flashErrLed();
+    }
+}
+
+[[noreturn]] void Transit::flashErrLed()
+{
+    while (true) {
+        digitalWrite(ledErrPin, HIGH);
+        delay(50);
+        digitalWrite(ledErrPin, LOW);
+        delay(50);
+    }
+}
+
+void Transit::setRadioPower()
+{
+    Radio.setTxPower(20, HIGH);
+}
