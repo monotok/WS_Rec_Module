@@ -6,9 +6,14 @@
 #include <Arduino.h>
 #include <Abc_Sensor.hpp>
 #include <Transit.hpp>
+#include <LocalSensor.hpp>
 #include "Wire.h"
 
 #define MASTER_ADDRESS 0x04
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 7
 
 Sensor sensors;
 #define TRANSIT_LED_PIN A1
@@ -21,6 +26,7 @@ Sensor sensors;
 #define RF69_FREQ 868.0
 
 Transit rf(TRANSIT_LED_PIN, ERR_LED_PIN, RFM69_CS, RFM69_INT, RFM69_RST, RF69_FREQ);
+LocalSensor ls(BME_CS, ERR_LED_PIN);
 
 short i = 0;
 
@@ -52,11 +58,16 @@ void setup()
     Wire.begin(MASTER_ADDRESS);
     Wire.onRequest(i2cSendData);
     Wire.onReceive(prepareNextSensorSendI2c);
+
+    ls.initialise();
 }
 
 void loop()
 {
     rf.ReceiveSensor(sensors);
+    ls.processTemperature(sensors);
+    ls.processHumidity(sensors);
+    ls.processPressure(sensors);\
     for (auto &reading : sensors.receivedSensors)
     {
         if (reading.sensorId[0] != 0) {
