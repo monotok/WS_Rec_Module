@@ -10,6 +10,9 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
+#define ERR_FOUND 0
+#define ERR_NOT_FOUND 1
+
 class LocalSensor
 {
 public:
@@ -20,10 +23,11 @@ public:
     void processPressure(Sensor& sensor);
 
 private:
-    [[noreturn]] void flashErrLed();
+    void flashErrLed();
 
     Adafruit_BME280 bme;
     uint8_t ledErrPin;
+    uint8_t errInitialising = ERR_NOT_FOUND;
 };
 
 
