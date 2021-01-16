@@ -16,9 +16,7 @@ class Sensor
 public:
     struct SensorData {
         char sensorId[4] = {};
-        char sensorType[4] = {};
         float reading = {};
-        char unit[4] = {};
     };
 
     void reinitialiseTempSensor();
